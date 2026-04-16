@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SoulCore — DESIGN.md v2.0 Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-bg-primary: #ffffff;
+      --color-bg-secondary: #f8f8fc;
+      --color-bg-tertiary: #f0f0f5;
+      --color-text-primary: #0f0f14;
+      --color-text-secondary: #1a1a2e;
+      --color-text-tertiary: #4a4a5a;
+      --color-text-quaternary: #5a5a6a;
+      --color-accent-primary: #8b5cf6;
+      --color-accent-hover: #6d28d9;
+      --color-accent-light: #a78bfa;
+      --color-accent-secondary: #10b981;
+      --color-border-default: #d0d0d5;
+      --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+      --shadow-purple: 0 10px 15px -3px rgba(139,92,246,0.25), 0 4px 6px -4px rgba(139,92,246,0.25);
+      --shadow-glow: 0 0 30px rgba(139,92,246,0.3);
+    }
+    [data-theme="dark"] {
+      --color-bg-primary: #0f0f14;
+      --color-bg-secondary: #16161e;
+      --color-bg-tertiary: #1a1a2e;
+      --color-text-primary: #ffffff;
+      --color-text-secondary: #e0e0e5;
+      --color-text-tertiary: #a0a0b0;
+      --color-text-quaternary: #707080;
+      --color-border-default: rgba(255,255,255,0.1);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--color-bg-primary);
+      color: var(--color-text-primary);
+      transition: background-color 200ms ease, color 200ms ease;
+      padding: 48px 24px;
+    }
+    .container { max-width: 1280px; margin: 0 auto; }
+    .brand-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 48px; padding-bottom: 24px;
+      border-bottom: 1px solid var(--color-border-default);
+    }
+    .brand-title { font-size: 48px; font-weight: 800; letter-spacing: -1.2px; line-height: 1; }
+    .brand-subtitle { font-size: 16px; color: var(--color-text-tertiary); margin-top: 8px; }
+    .theme-toggle {
+      background: transparent; border: 1px solid var(--color-border-default);
+      color: var(--color-text-tertiary); padding: 8px 16px; border-radius: 8px;
+      cursor: pointer; font: inherit; font-size: 14px; font-weight: 500;
+      transition: all 150ms ease;
+    }
+    .theme-toggle:hover { background: var(--color-bg-tertiary); color: var(--color-text-primary); }
+
+    .section { margin-bottom: 64px; }
+    .section-title { font-size: 24px; font-weight: 700; letter-spacing: -0.48px; margin-bottom: 8px; }
+    .section-desc { font-size: 14px; color: var(--color-text-tertiary); margin-bottom: 24px; }
+
+    /* Color swatches */
+    .swatch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+    .swatch {
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border-default);
+      border-radius: 16px; padding: 16px; transition: box-shadow 300ms cubic-bezier(0.22,1,0.36,1);
+    }
+    .swatch:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .swatch-color { height: 64px; border-radius: 8px; margin-bottom: 12px; border: 1px solid rgba(0,0,0,0.05); }
+    .swatch-name { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+    .swatch-hex { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--color-text-tertiary); }
+
+    /* Typography */
+    .type-scale { display: flex; flex-direction: column; gap: 16px; }
+    .type-row {
+      display: flex; align-items: baseline; gap: 24px; padding: 16px 0;
+      border-bottom: 1px solid var(--color-border-default);
+    }
+    .type-label {
+      font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--color-text-tertiary);
+      min-width: 140px; padding-top: 8px;
+    }
+    .type-sample { line-height: 1.2; letter-spacing: var(--tracking, normal); }
+
+    /* Buttons */
+    .button-grid { display: flex; flex-wrap: wrap; gap: 16px; }
+    .btn-primary {
+      background: var(--color-accent-primary); color: #fff;
+      padding: 8px 24px; border: none; border-radius: 8px;
+      font: 500 16px 'Inter', sans-serif; cursor: pointer;
+      transition: all 200ms ease;
+    }
+    .btn-primary:hover { background: var(--color-accent-hover); box-shadow: var(--shadow-purple); }
+    .btn-pill {
+      background: var(--color-accent-primary); color: #fff;
+      padding: 16px 32px; border: none; border-radius: 9999px;
+      font: 600 18px 'Inter', sans-serif; cursor: pointer;
+      box-shadow: var(--shadow-glow);
+      transition: all 200ms ease;
+    }
+    .btn-pill:hover { background: var(--color-accent-hover); }
+    .btn-secondary {
+      background: transparent; color: var(--color-accent-secondary);
+      padding: 16px 32px; border: 2px solid #34d399; border-radius: 9999px;
+      font: 600 18px 'Inter', sans-serif; cursor: pointer;
+      transition: all 200ms ease;
+    }
+    .btn-ghost {
+      background: transparent; color: var(--color-accent-primary);
+      padding: 8px 16px; border: none; border-radius: 8px;
+      font: 500 14px 'Inter', sans-serif; cursor: pointer;
+      transition: all 200ms ease;
+    }
+    .btn-ghost:hover { background: rgba(139,92,246,0.08); }
+
+    /* Cards */
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+    .card {
+      background: var(--color-bg-primary);
+      border: 1px solid rgba(139,92,246,0.1);
+      border-radius: 16px; padding: 32px;
+      box-shadow: var(--shadow-md);
+      transition: all 300ms cubic-bezier(0.22,1,0.36,1);
+    }
+    [data-theme="dark"] .card { background: rgba(255,255,255,0.05); }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+    .card-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: rgba(139,92,246,0.1); color: var(--color-accent-primary);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px; font-size: 24px;
+    }
+    .card-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: var(--color-text-secondary); }
+    .card-desc { font-size: 14px; color: var(--color-text-tertiary); line-height: 1.5; }
+
+    /* Badges */
+    .badge-row { display: flex; flex-wrap: wrap; gap: 12px; }
+    .badge {
+      padding: 4px 12px; border-radius: 9999px; font-size: 13px; font-weight: 500;
+    }
+    .badge-purple { background: rgba(139,92,246,0.1); color: var(--color-accent-primary); }
+    .badge-green { background: rgba(16,185,129,0.2); color: #10b981; }
+    .badge-warning { background: rgba(245,158,11,0.15); color: #b45309; }
+    .badge-error { background: rgba(239,68,68,0.1); color: #dc2626; }
+    .badge-neutral { background: var(--color-bg-tertiary); color: var(--color-text-tertiary); }
+
+    /* Shadow row */
+    .shadow-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 32px; }
+    .shadow-box {
+      background: var(--color-bg-primary); border-radius: 16px; padding: 24px;
+      text-align: center; font-size: 13px; font-weight: 600;
+      border: 1px solid var(--color-border-default);
+    }
+    .shadow-sm { box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1); }
+    .shadow-md-box { box-shadow: var(--shadow-md); }
+    .shadow-lg { box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1); }
+    .shadow-purple-box { box-shadow: var(--shadow-purple); }
+    .shadow-glow-box { box-shadow: var(--shadow-glow); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="brand-header">
+      <div>
+        <h1 class="brand-title">SoulCore</h1>
+        <p class="brand-subtitle">DESIGN.md v2.0 Preview · Visual Catalog</p>
+      </div>
+      <button class="theme-toggle" onclick="document.documentElement.dataset.theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'; this.textContent = document.documentElement.dataset.theme === 'dark' ? '☀️ Light' : '🌙 Dark';">🌙 Dark</button>
+    </header>
+
+    <section class="section">
+      <h2 class="section-title">Color Palette</h2>
+      <p class="section-desc">Semantic tokens with CSS custom property names. Hover to see elevation.</p>
+      <div class="swatch-grid">
+        <div class="swatch"><div class="swatch-color" style="background:#8b5cf6"></div><div class="swatch-name">Soul Purple</div><div class="swatch-hex">#8b5cf6 · --color-accent-primary</div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#6d28d9"></div><div class="swatch-name">Purple Hover</div><div class="swatch-hex">#6d28d9 · --color-accent-hover</div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#a78bfa"></div><div class="swatch-name">Purple Light</div><div class="swatch-hex">#a78bfa · --color-accent-light</div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#10b981"></div><div class="swatch-name">Emerald</div><div class="swatch-hex">#10b981 · --color-accent-secondary</div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#0f0f14"></div><div class="swatch-name">Soul Dark</div><div class="swatch-hex">#0f0f14 · --color-text-primary (L)</div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#1a1a2e"></div><div class="swatch-name">Dark Slate</div><div class="swatch-hex">#1a1a2e · --color-text-secondary (L)</div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#4a4a5a"></div><div class="swatch-name">Muted Slate</div><div class="swatch-hex">#4a4a5a · --color-text-tertiary (L)</div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#f8f8fc;border:1px solid #d0d0d5"></div><div class="swatch-name">Lavender White</div><div class="swatch-hex">#f8f8fc · --color-bg-secondary (L)</div></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Typography Scale</h2>
+      <p class="section-desc">Inter throughout — 400 for body, 800 for display. Progressive tracking: -2.4px at 96px → normal at 16px.</p>
+      <div class="type-scale">
+        <div class="type-row"><span class="type-label">display-2xl / 96 / 800</span><span class="type-sample" style="font-size:96px;font-weight:800;letter-spacing:-2.4px;line-height:1">Tu Idea</span></div>
+        <div class="type-row"><span class="type-label">display-lg / 48 / 800</span><span class="type-sample" style="font-size:48px;font-weight:800;letter-spacing:-1.2px;line-height:1">Hecha Realidad</span></div>
+        <div class="type-row"><span class="type-label">heading-lg / 36 / 700</span><span class="type-sample" style="font-size:36px;font-weight:700;letter-spacing:-0.72px">Ventajas únicas</span></div>
+        <div class="type-row"><span class="type-label">heading-sm / 24 / 700</span><span class="type-sample" style="font-size:24px;font-weight:700;letter-spacing:-0.48px">Velocidad 3x Superior</span></div>
+        <div class="type-row"><span class="type-label">body-lg / 18 / 400</span><span class="type-sample" style="font-size:18px;font-weight:400;line-height:1.6">Transformamos conceptos en software robusto.</span></div>
+        <div class="type-row"><span class="type-label">body-sm / 16 / 400</span><span class="type-sample" style="font-size:16px;font-weight:400;line-height:1.5">Lo que otros hacen en semanas, lo hacemos en días.</span></div>
+        <div class="type-row"><span class="type-label">label-md / 14 / 500</span><span class="type-sample" style="font-size:14px;font-weight:500">Email address</span></div>
+        <div class="type-row"><span class="type-label">caption / 12 / 400</span><span class="type-sample" style="font-size:12px;font-weight:400;color:var(--color-text-quaternary)">Servicios disponibles 24/7</span></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Buttons</h2>
+      <p class="section-desc">Purple filled for primary, pill for hero CTAs, emerald outline for resources, ghost for inline.</p>
+      <div class="button-grid">
+        <button class="btn-primary">Cotizar</button>
+        <button class="btn-pill">Ver Servicios →</button>
+        <button class="btn-secondary">🎁 Recursos Gratis</button>
+        <button class="btn-ghost">Ver más →</button>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Feature Cards</h2>
+      <p class="section-desc">16px radius, 32px padding, purple-tinted border, hover lifts with shadow.</p>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-icon">⚡</div>
+          <h3 class="card-title">Velocidad 3x Superior</h3>
+          <p class="card-desc">Metodologías optimizadas y herramientas avanzadas.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">📄</div>
+          <h3 class="card-title">Documentación Obsesiva</h3>
+          <p class="card-desc">TODO perfectamente documentado. Código limpio, mantenible.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🛡️</div>
+          <h3 class="card-title">Seguridad Primero</h3>
+          <p class="card-desc">Auditorías, pentesting y mejores prácticas OWASP integradas.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Badges</h2>
+      <p class="section-desc">All variants use pill radius (9999px), 4px/12px padding, 13px/500 font.</p>
+      <div class="badge-row">
+        <span class="badge badge-purple">● Del Concepto</span>
+        <span class="badge badge-green">● Free</span>
+        <span class="badge badge-warning">● Beta</span>
+        <span class="badge badge-error">● Error</span>
+        <span class="badge badge-neutral">Neutral</span>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Shadow Scale</h2>
+      <p class="section-desc">Neutral shadows for standard elevation, purple-tinted for brand moments, glow for hero CTAs.</p>
+      <div class="shadow-grid">
+        <div class="shadow-box shadow-sm">Shadow SM</div>
+        <div class="shadow-box shadow-md-box">Shadow MD</div>
+        <div class="shadow-box shadow-lg">Shadow LG</div>
+        <div class="shadow-box shadow-purple-box">Shadow Purple</div>
+        <div class="shadow-box shadow-glow-box">Shadow Glow</div>
+      </div>
+    </section>
+
+    <footer style="margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--color-border-default); text-align: center; font-size: 13px; color: var(--color-text-tertiary);">
+      <p>Preview generated from <strong>designs/soulcore/DESIGN.md</strong> — <a href="https://github.com/soulcore-dev/soul-design-md" style="color: var(--color-accent-primary); text-decoration: none;">soul-design-md</a></p>
+    </footer>
+  </div>
+</body>
+</html>
